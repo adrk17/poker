@@ -1,28 +1,57 @@
 package pl.edu.agh.kis.pz1;
 import java.util.*;
 
-
+/**
+ * Klasa reprezentująca talie kart
+ */
 public class Deck {
+    /**
+     * Pole reprezentujące listę kart w talii
+     */
     private List<Card> cardDeck;
+    /**
+     * Konstruktor talii kart
+     */
     public Deck(){
         cardDeck = new ArrayList<>();
     }
+
+    /**
+     * Konstruktor talii kart kopiujący bazową listę kart
+     * @param another to parametr reprezentujący bazową listę kart
+     */
     public Deck(Deck another){
         cardDeck = new ArrayList<>(another.cardDeck);
     }
 
 
-    //Adds card
+    /**
+     * Metoda dodająca kartę do talii
+     * @param card to parametr reprezentujący kartę do dodania
+     */
     public void addCard(Card card){
         cardDeck.add(card);
     }
+
+    /**
+     * Metoda zwracająca kartę z talii
+     * @param index to parametr reprezentujący indeks karty w talii
+     * @return zwracana karta z talii
+     */
     public Card getCard(int index){
         return cardDeck.get(index);
     }
 
+    /**
+     * Metoda sortująca talię kart
+     */
     public void sort(){
         cardDeck.sort(new CompareCards());
     }
+
+    /**
+     * Metoda generująca pełną talię kart (52 karty)
+     */
     public void generateCardDeck(){
         for (cardSuit suit : cardSuit.values()){
             for (cardRank rank : cardRank.values()){
@@ -31,16 +60,21 @@ public class Deck {
         }
     }
 
+    /**
+     * Metoda tasująca talię kart
+     */
     public void shuffle(){
         Collections.shuffle(cardDeck);
     }
-
+    /*
     public Deck shuffleNew(){
         Deck newDeck = new Deck(this);
         newDeck.shuffle();
         return newDeck;
-    }
-
+    }*/
+    /**
+     * Metoda wypisująca talię kart na ekran
+     */
     public void print(){
         for (Card c : cardDeck){
             System.out.print(c.getSuit().toString() + ": " + c.getRank().toString() + " | ");
@@ -48,13 +82,28 @@ public class Deck {
         System.out.println("\n");
     }
 
-
+    /**
+     * Metoda usuwająca pierwszą kartę z talii i zwracająca ją
+     * @return zwracana pierwsza karta z talii
+     */
     public Card pop(){
         return cardDeck.remove(0);
     }
+
+    /**
+     * Metoda usuwająca kartę z talii o podanym indeksie
+     * @param index to parametr reprezentujący indeks karty do usunięcia
+     * @return zwracana karta z talii
+     */
     public Card remove(int index){
         return cardDeck.remove(index);
     }
+
+    /**
+     * Metoda zamieniająca kartę o podanym indeksie w talii na nową kartę
+     * @param index to parametr reprezentujący indeks karty do zamiany
+     * @param card to parametr reprezentujący nową kartę wstawianą w miejsce starej
+     */
     public void replaceCard(int index, Card card){
         cardDeck.set(index, card);
     }
