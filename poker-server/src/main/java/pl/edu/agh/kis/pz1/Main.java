@@ -149,6 +149,9 @@ public class Main {
         GameManager gm2 = new GameManager(4);
         gm2.initializeGame();
         gm2.endGame();
+
+        Card card = new Card(cardRank.N2, cardSuit.DIAMONDS);
+        card.print();
     }
 
     void InitializeGame(int plNum){
