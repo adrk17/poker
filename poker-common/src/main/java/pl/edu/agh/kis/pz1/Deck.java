@@ -107,5 +107,18 @@ public class Deck {
     public void replaceCard(int index, Card card){
         cardDeck.set(index, card);
     }
+
+    /**
+     * Metoda tworząca tekstową reprezentację talii kart
+     * @return zwracana tekstowa reprezentacja talii kart
+     */
+    public String toString(){
+        StringBuilder result = new StringBuilder();
+        result.append("| ");
+        for (Card c : cardDeck){
+            result.append(c.getSuit().toString()).append(" : ").append(c.getRank().toString()).append(" | ");
+        }
+        return result.toString();
+    }
 }
 

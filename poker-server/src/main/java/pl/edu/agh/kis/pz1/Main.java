@@ -141,8 +141,7 @@ public class Main {
         for (Tuple result : results){
             System.out.println(result.getPokerHand().toString() + ": " + result.getScore());
         }
-        GameManager gm = new GameManager(players);
-        gm.endGame();
+
 
 
         //hv.printAnalyzedDecks();

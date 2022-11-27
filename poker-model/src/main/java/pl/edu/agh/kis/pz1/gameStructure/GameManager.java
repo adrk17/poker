@@ -134,4 +134,9 @@ public class GameManager {
         }
         players.get(playerIndex).sort();
     }
+
+   public String getCardDeckInfo(int playerIndex){
+       return "player #" + (playerIndex + 1) + "\n" +
+               players.get(playerIndex).toString();
+   }
 }
