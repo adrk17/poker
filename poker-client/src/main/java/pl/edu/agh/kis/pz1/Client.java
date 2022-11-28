@@ -7,22 +7,21 @@ import java.nio.channels.SocketChannel;
 import java.util.Scanner;
 
 public class Client {
-    private int plID = -1000;
-    private static SocketChannel client = null;
+    private static SocketChannel server = null;
     private static int port = 8000;
-    private static ByteBuffer buffer = ByteBuffer.allocate(1024);
     private static boolean connected = false;
+
     public static void main(String[] args) throws IOException {
         System.out.println("Starting client...");
-        System.out.println("select socket port, default is 8000");
+        System.out.println("select server port, default is 8000");
         connectToServer();
-        while (connected) {
-            getCardsAndID();
-            connected = false;
+        getCards();
+        System.out.println(getMessageFromServer());
+        sendCardIndicesToServer();
+        System.out.println(getMessageFromServer());
+        while (true){
+
         }
-
-
-
     }
     static void connectToServer(){
         Scanner scanner = new Scanner(System.in);
@@ -33,8 +32,8 @@ public class Client {
             catch (Exception e){
                 System.out.println("wrong port, default will be used");
             }
-            client = SocketChannel.open();
-            client.connect(new InetSocketAddress("localhost", port));
+            server = SocketChannel.open();
+            server.connect(new InetSocketAddress("localhost", port));
             System.out.println("Connected to server");
             connected = true;
         } catch (IOException e) {
@@ -43,14 +42,24 @@ public class Client {
         }
     }
 
-    private static String getCardsAndID() throws IOException {
+    private static void getCards() throws IOException {
+        System.out.println(getMessageFromServer());
+    }
+
+    private static String getMessageFromServer() throws IOException {
+        ByteBuffer buffer = ByteBuffer.allocate(1024);
         buffer.clear();
-        client.write(buffer);
+        server.write(buffer);
         buffer.flip();
-        client.read(buffer);
+        server.read(buffer);
         buffer.flip();
-        String s = new String(buffer.array()).trim();
-        System.out.println(s);
-        return s;
+        return new String(buffer.array()).trim();
+    }
+
+    private static void sendCardIndicesToServer() throws IOException {
+        Scanner scanner = new Scanner(System.in);
+        String message = scanner.nextLine();
+        ByteBuffer buffer = ByteBuffer.wrap(message.getBytes());
+        server.write(buffer);
     }
 }

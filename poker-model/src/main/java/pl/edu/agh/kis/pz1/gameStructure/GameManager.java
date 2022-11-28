@@ -128,7 +128,7 @@ public class GameManager {
      * @param playerIndex to parametr reprezentujący indeks gracza który wymienia karty
      * @param indexes to parametr reprezentujący indeksy kart w talii które gracz chce wymienić
      */
-    void changeCards(int playerIndex, Set<Integer> indexes){
+    public void changeCards(int playerIndex, Set<Integer> indexes){
         for (int index : indexes) {
             players.get(playerIndex).replaceCard(index, bank.pop());
         }
