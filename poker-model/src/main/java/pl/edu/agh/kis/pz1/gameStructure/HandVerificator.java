@@ -27,11 +27,8 @@ public class HandVerificator {
      */
     void verifyIfEnoughCards() {
         for (Deck playerDeck : players) {
-            try {
-                playerDeck.getCard(4);
-            } catch (Exception e) {
-                System.out.println("Not enough cards in deck!");
-                System.exit(1);
+            if (playerDeck.getSize() != 5) {
+                throw new IllegalArgumentException("Not enough cards in player deck");
             }
         }
     }

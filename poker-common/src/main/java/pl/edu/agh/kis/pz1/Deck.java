@@ -66,12 +66,7 @@ public class Deck {
     public void shuffle(){
         Collections.shuffle(cardDeck);
     }
-    /*
-    public Deck shuffleNew(){
-        Deck newDeck = new Deck(this);
-        newDeck.shuffle();
-        return newDeck;
-    }*/
+
     /**
      * Metoda wypisująca talię kart na ekran
      */
@@ -90,14 +85,6 @@ public class Deck {
         return cardDeck.remove(0);
     }
 
-    /**
-     * Metoda usuwająca kartę z talii o podanym indeksie
-     * @param index to parametr reprezentujący indeks karty do usunięcia
-     * @return zwracana karta z talii
-     */
-    public Card remove(int index){
-        return cardDeck.remove(index);
-    }
 
     /**
      * Metoda zamieniająca kartę o podanym indeksie w talii na nową kartę
@@ -120,5 +107,13 @@ public class Deck {
         }
         return result.toString();
     }
+
+    /**
+     * Gettter zwracający rozmiar talii kart
+     */
+    public int getSize(){
+        return cardDeck.size();
+    }
+
 }
 

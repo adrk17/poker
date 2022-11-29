@@ -32,6 +32,26 @@ public class GameManager {
     }
 
     /**
+     * Konstruktor klasy GameManager który buduje grę na podstawie istniejących talii graczy
+     * używane w testowaniu
+     * @param _players - lista talii graczy
+     */
+    public GameManager(List<Deck> _players){
+        numPlayers = _players.size();
+        players = _players;
+    }
+
+    public Deck getPlayersDeck(int index){
+        return players.get(index);
+    }
+    public int getPlayerNum(){
+        return numPlayers;
+    }
+    public Deck getBankDeck(){
+        return bank;
+    }
+
+    /**
      * Metoda rozpoczynająca grę, tworząca talie graczy i dilera, tasująca karty i rozdająca graczom po 5 kart
      */
     public void initializeGame(){
@@ -68,11 +88,11 @@ public class GameManager {
     /**
      * Metoda kończąca grę, sprawdzająca ręki graczy i wyświetlająca wyniki
      */
-    public void endGame(){
-        if (players == null){return;}
+    public String endGame(){
+        if (numPlayers == 0){return "no players";}
         hv = new HandVerificator(players);
         List<Tuple> results = hv.verifyHands();
-        checkForWinner(results);
+        return checkForWinner(results);
     }
 
     /**
@@ -80,11 +100,13 @@ public class GameManager {
      * @param results to parametr reprezentujący wyniki graczy otrzymane z HandVerificator
      * @return zwracana jest lista graczy wygranych
      */
-     List<Integer> checkForWinner(List<Tuple> results) {
+     String checkForWinner(List<Tuple> results) {
+         StringBuilder sb = new StringBuilder();
          // sprawdzanie czy są dostępne jakiekolwiek wyniki
         if (results == null) {
             System.out.println("No results!");
-            return null;
+            sb.append("No results!");
+            return sb.toString();
         }
         // inicjalizacja zmiennych do weryfikacji zwycięzcy
         pokerHand bestHand = pokerHand.HIGHCARD;
@@ -111,16 +133,20 @@ public class GameManager {
         if (winners.size() == 1) {
             int w = winners.get(0) + 1;
             System.out.println("The winner is: " + "player #" + w + "\nWinning hand: " + results.get(winners.get(0)).getPokerHand().toString());
+            return "The winner is: " + "player #" + w + "!!!"+"\nWinning hand: " + results.get(winners.get(0)).getPokerHand().toString();
         }
         else {
             System.out.println("It is a draw! The winners are:");
+            sb.append("It is a draw! The winners are:\n");
             for (var winner : winners) {
                 int w = winner+1;
-                System.out.println("player #"+w);
+                System.out.println("player #"+w +"!!!");
+                sb.append("player #").append(w).append("\n");
             }
             System.out.println("Winning hand: " + results.get(winners.get(0)).getPokerHand().toString());
+            sb.append("Winning hand: ").append(results.get(winners.get(0)).getPokerHand().toString());
         }
-        return winners;
+        return sb.toString();
     }
 
     /**
@@ -135,8 +161,27 @@ public class GameManager {
         players.get(playerIndex).sort();
     }
 
+    /**
+     * Metoda zwracająca talie gracza w formie Stringa
+     * @param playerIndex to parametr reprezentujący indeks gracza którego talia ma zostać zwrócona
+     * @return zwracana jest talia gracza w formie Stringa
+     */
    public String getCardDeckInfo(int playerIndex){
+        players.get(playerIndex).sort();
        return "player #" + (playerIndex + 1) + "\n" +
                players.get(playerIndex).toString();
+   }
+
+    /**
+     * Metoda zwracająca odkryte talie kart wszystkich graczy w formie Stringa
+     * @return zwracana są odkryte talie kart wszystkich graczy w formie Stringa
+     */
+   public String showWholeTable(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("\n\n------RESULTS------\nTable:\n");
+        for (int i = 0; i < numPlayers; i++) {
+           sb.append(getCardDeckInfo(i)).append("\n\n");
+        }
+        return sb.toString();
    }
 }

@@ -7,11 +7,11 @@ public class Tuple {
     /**
      * Pole reprezentujące rękę
      */
-    private pokerHand ph;
+    private final pokerHand ph;
     /**
      * Pole reprezentujące wartość danej ręki
      */
-    private int score;
+    private final int score;
 
     /**
      * Konstruktor klasy Tuple
