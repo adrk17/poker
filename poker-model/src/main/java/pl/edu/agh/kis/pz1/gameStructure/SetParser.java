@@ -6,8 +6,9 @@ import java.util.Set;
  * Klasa reprezentująca parser Stringa do Setu indeksu kart do wymianny
  */
 public class SetParser {
-    String report = "unchecked";
+    String report;
     Set<Integer> resultSet;
+    final String wrongRapport = "wrong";
     /**
      * Konstruktor klasy SetParser - który przeprowadza analizę dostarczonego stringa i zapisuje wynk do pola result
      * @param potentialSet to parametr reprezentujący Stringa do przetworzenia
@@ -16,7 +17,7 @@ public class SetParser {
         resultSet = new HashSet<>();
         // string musi mieć długość 1 bądź 3
         if (potentialSet.length() != 3 && potentialSet.length() != 1){
-            report = "wrong";
+            report = wrongRapport;
         }
         // string musi składać się z 1 lub 2 cyfr i jednego znaku oddzielającego cyfry
         else if (Character.isDigit(potentialSet.charAt(0)) && potentialSet.length() == 1){
@@ -30,7 +31,7 @@ public class SetParser {
             checkIfIntInRange(first);
             checkIfIntInRange(second);
         }else {
-            report = "wrong";
+            report = wrongRapport;
         }
     }
 
@@ -40,7 +41,7 @@ public class SetParser {
      */
     private void checkIfIntInRange(int i){
         if (i < 0 || i > 4){
-            report = "wrong";
+            report = wrongRapport;
         }else{
             resultSet.add(i);
         }

@@ -9,11 +9,11 @@ public class HandVerificator {
     /**
      * Lista talii graczy
      */
-    private List<Deck> players;
+    private final List<Deck> players;
     /**
      * Lista rąk jakie gracze uzyskali i ich score
      */
-    private List<Tuple> playerHands = new ArrayList<>();
+    private final List<Tuple> playerHands = new ArrayList<>();
     /**
      * Konstruktor klasy HandVerificator
      * @param _players to parametr reprezentujący listę talii graczy
@@ -121,19 +121,31 @@ public class HandVerificator {
         int three = 0;
         List<Integer> pairs = new ArrayList<>();
         List<Integer> singles = new ArrayList<>();
-        for (var i : deck.keySet()) {
-            if (deck.get(i) == 2) {
-                pairs.add(i + 1);
-            } else if (deck.get(i) == 3) {
-                three = i + 1;
-            } else if (deck.get(i) == 4) {
-                four = i + 1;
-            } else if (deck.get(i) == 1) {
-                singles.add(i + 1);
+        for (var i : deck.entrySet()) {
+            if (deck.get(i.getKey()) == 2) {
+                pairs.add(i.getKey() + 1);
+            } else if (deck.get(i.getKey()) == 3) {
+                three = i.getKey() + 1;
+            } else if (deck.get(i.getKey()) == 4) {
+                four = i.getKey() + 1;
+            } else if (deck.get(i.getKey()) == 1) {
+                singles.add(i.getKey() + 1);
             }
         }
         // oblicznaie wyników do poszczególnych rąk w celu rozstrzygnięcia remisów
-        int score = 0;
+        return getTupleOfResults(four, three, pairs, singles);
+    }
+
+    /**
+     * Metoda obliczająca wynik dla poszczególnych rąk gracza
+     * @param four - parametr reprezentujący ilość czwórek
+     * @param three - parametr reprezentujący ilość trójek
+     * @param pairs - parametr reprezentujący ilość par
+     * @param singles - parametr reprezentujący ilość kart o innej wartości niż pozostałe
+     * @return zwraca rękę gracza i ostateczny wynik
+     */
+    private Tuple getTupleOfResults(int four, int three, List<Integer> pairs, List<Integer> singles) {
+        int score;
         if (four > 0) {
             score = (four * 100) + singles.get(0);
             return new Tuple(pokerHand.FOUR, score);
@@ -152,10 +164,11 @@ public class HandVerificator {
         } else if (pairs.size() == 0) {
             score = (singles.get(4) * 100000000) + (singles.get(3) * 1000000) + (singles.get(2) * 10000) + (singles.get(1) * 100) + (singles.get(0));
             return new Tuple(pokerHand.HIGHCARD, score);
-        } else {
-            System.out.println("Something went wrong");
-            throw new RuntimeException();
+        }
+        else {
+            return new Tuple(pokerHand.HIGHCARD, 0);
         }
     }
+
 }
 

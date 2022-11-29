@@ -34,5 +34,6 @@ public enum cardSuit {
      * Metoda zwracająca nazwę koloru karty
      * @return zwracana nazwa koloru karty
      */
+    @Override
     public String toString(){return name;}
 }

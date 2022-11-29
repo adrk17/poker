@@ -1,8 +1,6 @@
 package pl.edu.agh.kis.pz1;
 
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -68,16 +66,6 @@ class DeckTest {
     }
 
 
-    @org.junit.jupiter.api.Test
-    void testPrintCardFromDeck() {
-        Deck d = new Deck();
-        d.addCard(new Card(cardRank.N2, cardSuit.CLUBS));
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
-        d.print();
-        String shouldEqual = "clubs: 2 | \n\r\n";
-        assertEquals(shouldEqual, outContent.toString());
-    }
 
     @org.junit.jupiter.api.Test
     void popDiamonds5() {
@@ -103,6 +91,6 @@ class DeckTest {
         Deck d = new Deck();
         d.addCard(new Card(cardRank.ACE, cardSuit.HEARTS));
         d.addCard(new Card(cardRank.N2, cardSuit.CLUBS));
-        assertEquals(d.toString(), "| hearts : ace | clubs : 2 | ");
+        assertEquals("| hearts : ace | clubs : 2 | ", d.toString());
     }
 }

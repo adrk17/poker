@@ -5,6 +5,7 @@ import java.util.Objects;
  * Ta klasa reprezentuje kartę w grze w pokera
  * */
 public class Card {
+
     /***
      * To jest pole reprezentujące rangę karty
      * */
@@ -42,12 +43,6 @@ public class Card {
      * */
     public cardSuit getSuit(){return suit;}
 
-    /***
-     * To jest metoda wypisująca kartę na ekran
-     * */
-    public void print(){
-        System.out.println(rank.toString() +" - " + suit.toString());
-    }
 
     /***
      * To jest metoda porównująca karty

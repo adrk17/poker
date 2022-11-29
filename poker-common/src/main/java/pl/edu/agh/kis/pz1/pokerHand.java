@@ -41,5 +41,6 @@ public enum pokerHand {
      * Metoda zwracająca nazwę ręki
      * @return zwracana nazwa ręki
      */
+    @Override
     public String toString(){return name;}
 }

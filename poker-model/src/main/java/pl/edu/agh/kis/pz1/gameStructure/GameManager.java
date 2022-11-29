@@ -3,6 +3,8 @@ import pl.edu.agh.kis.pz1.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Logger;
 /**
  * Klasa zarządzanjąca grą
  */
@@ -23,12 +25,15 @@ public class GameManager {
      * Instancja klasy weryfikującej ręke graczy
      */
     HandVerificator hv;
+    Logger logger = Logger.getLogger(GameManager.class);
+    final String plString = "player #";
     /**
      * Konstruktor klasy GameManager
      * @param _numPlayers to parametr reprezentujący liczbę graczy biorących udział w grze
      */
     public GameManager(int _numPlayers){
         numPlayers = _numPlayers;
+        BasicConfigurator.configure();
     }
 
     /**
@@ -56,31 +61,31 @@ public class GameManager {
      */
     public void initializeGame(){
         // inicjalizacja talii graczy
-        players = new ArrayList<Deck>();
+        players = new ArrayList<>();
         for (int i = 0; i < numPlayers; i++) {
             players.add(new Deck());
         }
-        System.out.println("players created");
+        logger.info("players created");
 
         // inicjalizacja talii dilera
         bank = new Deck();
         bank.generateCardDeck();
-        System.out.println("generated the deck");
+        logger.info("generated the deck");
         bank.shuffle();
-        System.out.println("the deck was shuffled");
+        logger.info("the deck was shuffled");
 
         // rozdanie kart
         int cardNum = 5;
-        System.out.println("dealing the cards...");
+        logger.info("dealing the cards...");
         for (int i = 0; i < numPlayers; i++) {
             for (int j = 0; j < cardNum; j++) {
                 players.get(i).addCard(bank.pop());
             }
         }
         // wyświetlenie kart graczy
-        System.out.println("cards dealt");
+        logger.info("cards dealt");
         for (int i = 0; i < numPlayers; i++) {
-            System.out.println("player" + (i+1));
+            logger.info("player" + (i+1));
             players.get(i).print();
         }
     }
@@ -104,7 +109,7 @@ public class GameManager {
          StringBuilder sb = new StringBuilder();
          // sprawdzanie czy są dostępne jakiekolwiek wyniki
         if (results == null) {
-            System.out.println("No results!");
+            logger.info("No results!");
             sb.append("No results!");
             return sb.toString();
         }
@@ -129,21 +134,22 @@ public class GameManager {
                 }
             }
         }
+
         // wyświetlanie wyników
         if (winners.size() == 1) {
             int w = winners.get(0) + 1;
-            System.out.println("The winner is: " + "player #" + w + "\nWinning hand: " + results.get(winners.get(0)).getPokerHand().toString());
-            return "The winner is: " + "player #" + w + "!!!"+"\nWinning hand: " + results.get(winners.get(0)).getPokerHand().toString();
+            logger.info("The winner is: " + plString + w + "\nWinning hand: " + results.get(winners.get(0)).getPokerHand().toString());
+            return "The winner is: " + plString + w + "!!!"+"\nWinning hand: " + results.get(winners.get(0)).getPokerHand().toString();
         }
         else {
-            System.out.println("It is a draw! The winners are:");
+            logger.info("It is a draw! The winners are:");
             sb.append("It is a draw! The winners are:\n");
             for (var winner : winners) {
                 int w = winner+1;
-                System.out.println("player #"+w +"!!!");
-                sb.append("player #").append(w).append("\n");
+                logger.info(plString+w +"!!!");
+                sb.append(plString).append(w).append("\n");
             }
-            System.out.println("Winning hand: " + results.get(winners.get(0)).getPokerHand().toString());
+            logger.info("Winning hand: " + results.get(winners.get(0)).getPokerHand().toString());
             sb.append("Winning hand: ").append(results.get(winners.get(0)).getPokerHand().toString());
         }
         return sb.toString();
@@ -168,7 +174,7 @@ public class GameManager {
      */
    public String getCardDeckInfo(int playerIndex){
         players.get(playerIndex).sort();
-       return "player #" + (playerIndex + 1) + "\n" +
+       return plString + (playerIndex + 1) + "\n" +
                players.get(playerIndex).toString();
    }
 

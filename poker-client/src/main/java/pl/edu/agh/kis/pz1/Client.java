@@ -1,11 +1,11 @@
 package pl.edu.agh.kis.pz1;
-
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
 import java.util.Scanner;
-
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Logger;
 /**
  * Klasa klienta
  */
@@ -13,27 +13,29 @@ public class Client {
     private static SocketChannel server = null;
     private static int port = 8000;
     private static boolean connected = false;
+    private static final Logger logger = Logger.getLogger(Client.class);
     /**
      * Metoda main czyli główna metoda klienta
      * @param args - argumenty wywołania programu, nie są brane pod uwagę
      */
     public static void main(String[] args) throws IOException {
-        System.out.println("Starting client...");
-        System.out.println("select server port, default is 8000");
+        BasicConfigurator.configure();
+        logger.info("Starting client...");
+        logger.info("select server port, default is 8000");
         // dołączenie do serwera
         connectToServer();
-        System.out.println("Waiting for other players to connect...");
+        logger.info("Waiting for other players to connect...");
         // odebranie kart podczas pierwszej rundy
         getCards();
         // rozpoczęcie gry ta część programu wykonuje się tyle razy ile rund trwa gra
         while (connected) {
-            System.out.println(getMessageFromServer());
+            logger.info("\n"+getMessageFromServer());
             // wysyłanie akcji do serwera
             sendCardIndicesToServer();
-            System.out.println(getMessageFromServer());
-            System.out.println("Waiting for other players to play...");
-            System.out.println(getMessageFromServer());
-            System.out.println("Thank you for playing!");
+            logger.info(getMessageFromServer());
+            logger.info("Waiting for other players to play...");
+            logger.info("\n"+getMessageFromServer());
+            logger.info("Thank you for playing!");
             // decyzja o dalszym udziale w grze
             checkIfNextRound();
         }
@@ -48,19 +50,28 @@ public class Client {
     static void connectToServer(){
         Scanner scanner = new Scanner(System.in);
         try{
-            try{
-                port = scanner.nextInt();
-            }
-            catch (Exception e){
-                System.out.println("wrong port, default will be used");
-            }
+            scanForInt(scanner);
             server = SocketChannel.open();
             server.connect(new InetSocketAddress("localhost", port));
-            System.out.println("Connected to server");
+            logger.info("Connected to server");
             connected = true;
         } catch (IOException e) {
-            System.out.println("Connection error - couldn't connect to server");
+            logger.info("Connection error - couldn't connect to server");
             System.exit(1);
+        }
+    }
+
+    /**
+     * Metoda wczytująca port serwera
+     * @param scanner - obiekt klasy Scanner
+     */
+    private static void scanForInt(Scanner scanner) {
+        try{
+            port = scanner.nextInt();
+
+        }
+        catch (Exception e){
+            logger.info("wrong port, default will be used");
         }
     }
 
@@ -68,7 +79,7 @@ public class Client {
      * Metoda odbierająca wiadomość od serwera a w tym wypadku specyficznie odbiera wiadomość z kartami
      */
     private static void getCards() throws IOException {
-        System.out.println(getMessageFromServer());
+        logger.info(getMessageFromServer());
     }
 
     /**
@@ -96,7 +107,7 @@ public class Client {
         String message = scanner.nextLine();
         ByteBuffer buffer = ByteBuffer.wrap(message.getBytes());
         server.write(buffer);
-        System.out.println("Cards sent to the server");
+        logger.info("Cards sent to the server");
     }
 
     /**
@@ -108,14 +119,14 @@ public class Client {
         String input = "";
         Scanner scanner = new Scanner(System.in);
         while (!input.equals("y") && !input.equals("n")) {
-            System.out.println("If you want to play another round press y, if not press n");
+            logger.info("If you want to play another round press y, if not press n");
             scanner.useDelimiter("");
             input = scanner.next();
         }
         ByteBuffer buffer = ByteBuffer.wrap(input.getBytes());
         server.write(buffer);
         String message = getMessageFromServer();
-        System.out.println(message);
+        logger.info(message);
         if (message.equals("GameOver")) {
             connected = false;
         }

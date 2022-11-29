@@ -1,6 +1,7 @@
 package pl.edu.agh.kis.pz1;
 import java.util.*;
-
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Logger;
 /**
  * Klasa reprezentująca talie kart
  */
@@ -8,12 +9,13 @@ public class Deck {
     /**
      * Pole reprezentujące listę kart w talii
      */
-    private List<Card> cardDeck;
+    private final List<Card> cardDeck;
     /**
      * Konstruktor talii kart
      */
     public Deck(){
         cardDeck = new ArrayList<>();
+        BasicConfigurator.configure();
     }
 
     /**
@@ -22,9 +24,10 @@ public class Deck {
      */
     public Deck(Deck another){
         cardDeck = new ArrayList<>(another.cardDeck);
+        BasicConfigurator.configure();
     }
 
-
+    final Logger logger = Logger.getLogger(Deck.class);
     /**
      * Metoda dodająca kartę do talii
      * @param card to parametr reprezentujący kartę do dodania
@@ -72,9 +75,9 @@ public class Deck {
      */
     public void print(){
         for (Card c : cardDeck){
-            System.out.print(c.getSuit().toString() + ": " + c.getRank().toString() + " | ");
+            logger.info(c.getSuit().toString() + ": " + c.getRank().toString() + " | ");
         }
-        System.out.println("\n");
+        logger.info("\n");
     }
 
     /**

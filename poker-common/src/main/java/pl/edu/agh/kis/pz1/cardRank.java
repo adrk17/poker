@@ -38,11 +38,12 @@ public enum cardRank {
      * Metoda zwracająca wartość rangi karty
      * @return zwracana wartość rangi karty
      */
-    public int getOrder(){return order;};
+    public int getOrder(){return order;}
     /**
      * Metoda zwracająca nazwę rangi karty
      * @return zwracana nazwa rangi karty
      */
-    public String toString(){return name;};
+    @Override
+    public String toString(){return name;}
 
 }
