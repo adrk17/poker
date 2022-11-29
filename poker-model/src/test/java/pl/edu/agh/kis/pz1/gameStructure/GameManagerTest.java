@@ -145,4 +145,5 @@ class GameManagerTest {
         String expected = "\n\n------RESULTS------\nTable:\nplayer #1\n| clubs : king | clubs : ace | \n\nplayer #2\n| diamonds : king | diamonds : ace | \n\n";
         assertEquals(expected, gm.showWholeTable());
     }
+
 }
