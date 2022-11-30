@@ -1,0 +1,4 @@
+# Created at 2022-11-30T01:37:30.468
+Boot Manifest-JAR contains absolute paths in classpath 'D:\Java\projekt1\poker-common\target\test-classes'
+Hint: <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
+

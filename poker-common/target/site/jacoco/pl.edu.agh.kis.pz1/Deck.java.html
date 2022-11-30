@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="no"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Deck.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">poker-common</a> &gt; <a href="index.source.html" class="el_package">pl.edu.agh.kis.pz1</a> &gt; <span class="el_source">Deck.java</span></div><h1>Deck.java</h1><pre class="source lang-java linenums">package pl.edu.agh.kis.pz1;
+import java.util.*;
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Logger;
+/**
+ * Klasa reprezentująca talie kart
+ */
+public class Deck {
+    /**
+     * Pole reprezentujące listę kart w talii
+     */
+    private final List&lt;Card&gt; cardDeck;
+    /**
+     * Konstruktor talii kart
+     */
+<span class="fc" id="L16">    public Deck(){</span>
+<span class="fc" id="L17">        cardDeck = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L18">        BasicConfigurator.configure();</span>
+<span class="fc" id="L19">    }</span>
+
+    /**
+     * Konstruktor talii kart kopiujący bazową listę kart
+     * @param another to parametr reprezentujący bazową listę kart
+     */
+<span class="fc" id="L25">    public Deck(Deck another){</span>
+<span class="fc" id="L26">        cardDeck = new ArrayList&lt;&gt;(another.cardDeck);</span>
+<span class="fc" id="L27">        BasicConfigurator.configure();</span>
+<span class="fc" id="L28">    }</span>
+
+<span class="fc" id="L30">    final Logger logger = Logger.getLogger(Deck.class);</span>
+    /**
+     * Metoda dodająca kartę do talii
+     * @param card to parametr reprezentujący kartę do dodania
+     */
+    public void addCard(Card card){
+<span class="fc" id="L36">        cardDeck.add(card);</span>
+<span class="fc" id="L37">    }</span>
+
+    /**
+     * Metoda zwracająca kartę z talii
+     * @param index to parametr reprezentujący indeks karty w talii
+     * @return zwracana karta z talii
+     */
+    public Card getCard(int index){
+<span class="fc" id="L45">        return cardDeck.get(index);</span>
+    }
+
+    /**
+     * Metoda sortująca talię kart
+     */
+    public void sort(){
+<span class="fc" id="L52">        cardDeck.sort(new CompareCards());</span>
+<span class="fc" id="L53">    }</span>
+
+    /**
+     * Metoda generująca pełną talię kart (52 karty)
+     */
+    public void generateCardDeck(){
+<span class="fc bfc" id="L59" title="All 2 branches covered.">        for (cardSuit suit : cardSuit.values()){</span>
+<span class="fc bfc" id="L60" title="All 2 branches covered.">            for (cardRank rank : cardRank.values()){</span>
+<span class="fc" id="L61">                addCard(new Card(rank, suit));</span>
+            }
+        }
+<span class="fc" id="L64">    }</span>
+
+    /**
+     * Metoda tasująca talię kart
+     */
+    public void shuffle(){
+<span class="nc" id="L70">        Collections.shuffle(cardDeck);</span>
+<span class="nc" id="L71">    }</span>
+
+    /**
+     * Metoda wypisująca talię kart na ekran
+     */
+    public void print(){
+<span class="nc bnc" id="L77" title="All 2 branches missed.">        for (Card c : cardDeck){</span>
+<span class="nc" id="L78">            logger.info(c.getSuit().toString() + &quot;: &quot; + c.getRank().toString() + &quot; | &quot;);</span>
+<span class="nc" id="L79">        }</span>
+<span class="nc" id="L80">        logger.info(&quot;\n&quot;);</span>
+<span class="nc" id="L81">    }</span>
+
+    /**
+     * Metoda usuwająca pierwszą kartę z talii i zwracająca ją
+     * @return zwracana pierwsza karta z talii
+     */
+    public Card pop(){
+<span class="fc" id="L88">        return cardDeck.remove(0);</span>
+    }
+
+
+    /**
+     * Metoda zamieniająca kartę o podanym indeksie w talii na nową kartę
+     * @param index to parametr reprezentujący indeks karty do zamiany
+     * @param card to parametr reprezentujący nową kartę wstawianą w miejsce starej
+     */
+    public void replaceCard(int index, Card card){
+<span class="fc" id="L98">        cardDeck.set(index, card);</span>
+<span class="fc" id="L99">    }</span>
+
+    /**
+     * Metoda tworząca tekstową reprezentację talii kart
+     * @return zwracana tekstowa reprezentacja talii kart
+     */
+    public String toString(){
+<span class="fc" id="L106">        StringBuilder result = new StringBuilder();</span>
+<span class="fc" id="L107">        result.append(&quot;| &quot;);</span>
+<span class="fc bfc" id="L108" title="All 2 branches covered.">        for (Card c : cardDeck){</span>
+<span class="fc" id="L109">            result.append(c.getSuit().toString()).append(&quot; : &quot;).append(c.getRank().toString()).append(&quot; | &quot;);</span>
+<span class="fc" id="L110">        }</span>
+<span class="fc" id="L111">        return result.toString();</span>
+    }
+
+    /**
+     * Gettter zwracający rozmiar talii kart
+     */
+    public int getSize(){
+<span class="nc" id="L118">        return cardDeck.size();</span>
+    }
+
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

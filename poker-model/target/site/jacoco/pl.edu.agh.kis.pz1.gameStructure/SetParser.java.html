@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="no"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SetParser.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">poker-model</a> &gt; <a href="index.source.html" class="el_package">pl.edu.agh.kis.pz1.gameStructure</a> &gt; <span class="el_source">SetParser.java</span></div><h1>SetParser.java</h1><pre class="source lang-java linenums">package pl.edu.agh.kis.pz1.gameStructure;
+
+import java.util.HashSet;
+import java.util.Set;
+/**
+ * Klasa reprezentująca parser Stringa do Setu indeksu kart do wymianny
+ */
+public class SetParser {
+    String report;
+    Set&lt;Integer&gt; resultSet;
+<span class="fc" id="L11">    final String wrongRapport = &quot;wrong&quot;;</span>
+    /**
+     * Konstruktor klasy SetParser - który przeprowadza analizę dostarczonego stringa i zapisuje wynk do pola result
+     * @param potentialSet to parametr reprezentujący Stringa do przetworzenia
+     */
+<span class="fc" id="L16">    public SetParser(String potentialSet){</span>
+<span class="fc" id="L17">        resultSet = new HashSet&lt;&gt;();</span>
+        // string musi mieć długość 1 bądź 3
+<span class="pc bpc" id="L19" title="1 of 4 branches missed.">        if (potentialSet.length() != 3 &amp;&amp; potentialSet.length() != 1){</span>
+<span class="fc" id="L20">            report = wrongRapport;</span>
+        }
+        // string musi składać się z 1 lub 2 cyfr i jednego znaku oddzielającego cyfry
+<span class="pc bpc" id="L23" title="2 of 4 branches missed.">        else if (Character.isDigit(potentialSet.charAt(0)) &amp;&amp; potentialSet.length() == 1){</span>
+<span class="nc" id="L24">            int first = Integer.parseInt(potentialSet.substring(0,1));</span>
+<span class="nc" id="L25">            report = &quot;ok&quot;;</span>
+<span class="nc" id="L26">            checkIfIntInRange(first);</span>
+<span class="pc bpc" id="L27" title="3 of 6 branches missed.">        }else if(potentialSet.length() == 3 &amp;&amp; Character.isDigit(potentialSet.charAt(0)) &amp;&amp; Character.isDigit(potentialSet.charAt(2))) {</span>
+<span class="fc" id="L28">            int first =Integer.parseInt(potentialSet.substring(0, 1));</span>
+<span class="fc" id="L29">            int second = Integer.parseInt(potentialSet.substring(2, 3));</span>
+<span class="fc" id="L30">            report = &quot;ok&quot;;</span>
+<span class="fc" id="L31">            checkIfIntInRange(first);</span>
+<span class="fc" id="L32">            checkIfIntInRange(second);</span>
+<span class="fc" id="L33">        }else {</span>
+<span class="nc" id="L34">            report = wrongRapport;</span>
+        }
+<span class="fc" id="L36">    }</span>
+
+    /**
+     * Metoda sprawdzająca czy liczba jest w zakresie 0-4 gdyż reprezentuje ona indeks w talii 5 kart gracza
+     * @param i to parametr reprezentujący indeks do sprawdzenia
+     */
+    private void checkIfIntInRange(int i){
+<span class="pc bpc" id="L43" title="2 of 4 branches missed.">        if (i &lt; 0 || i &gt; 4){</span>
+<span class="nc" id="L44">            report = wrongRapport;</span>
+        }else{
+<span class="fc" id="L46">            resultSet.add(i);</span>
+        }
+<span class="fc" id="L48">    }</span>
+
+    /**
+     * Metoda zwracająca wynik analizy stringa
+     * @return zwraca Stringa z wynikiem analizy
+     */
+    public String getReport(){
+<span class="fc" id="L55">        return report;</span>
+    }
+
+    /**
+     * Metoda zwraca wynikowy Set indeksów kart do wymiany, wartość ma znaczenie tylko i wyłącznie
+     * gdy getReport() zwraca &quot;ok&quot;
+     * @return zwraca Set indeksów kart do wymiany
+     */
+    public Set&lt;Integer&gt; getResultSet(){
+<span class="fc" id="L64">        return resultSet;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

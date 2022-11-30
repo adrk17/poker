@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="no"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Card.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">poker-common</a> &gt; <a href="index.source.html" class="el_package">pl.edu.agh.kis.pz1</a> &gt; <span class="el_source">Card.java</span></div><h1>Card.java</h1><pre class="source lang-java linenums">package pl.edu.agh.kis.pz1;
+
+import java.util.Objects;
+/***
+ * Ta klasa reprezentuje kartę w grze w pokera
+ * */
+public class Card {
+
+    /***
+     * To jest pole reprezentujące rangę karty
+     * */
+    cardRank rank;
+    /***
+     * To jest pole reprezentujące kolor karty
+     * */
+    cardSuit suit;
+    /***
+     * To jest konstruktor karty
+     * @param rank to jest parametr reprezentujący rangę karty
+     * @param suit to jest parametr reprezentujący kolor karty
+     * */
+<span class="fc" id="L22">    public Card(cardRank rank, cardSuit suit){</span>
+<span class="fc" id="L23">        this.rank = rank;</span>
+<span class="fc" id="L24">        this.suit = suit;</span>
+<span class="fc" id="L25">    }</span>
+    /***
+     * To jest konstruktor karty w oparciu o inną kartę
+     * @param another to parametr reprezentujący kartę bazową
+     * */
+<span class="fc" id="L30">    public Card(Card another){</span>
+<span class="fc" id="L31">        this.rank = another.getRank();</span>
+<span class="fc" id="L32">        this.suit = another.getSuit();</span>
+<span class="fc" id="L33">    }</span>
+
+    /***
+     * To jest metoda zwracająca rangę karty
+     * @return to jest zwracana wartość rangi karty
+     * */
+<span class="fc" id="L39">    public cardRank getRank(){return rank;}</span>
+    /***
+     * To jest metoda zwracająca kolor karty
+     * @return zwracana wartość koloru karty
+     * */
+<span class="fc" id="L44">    public cardSuit getSuit(){return suit;}</span>
+
+
+    /***
+     * To jest metoda porównująca karty
+     * @param o jest parametrem reprezentującym kartę do porównania
+     * @return zwracana wartość logiczna porównania
+     * */
+    @Override
+    public boolean equals(Object o) {
+<span class="fc bfc" id="L54" title="All 2 branches covered.">        if (this == o) return true;</span>
+<span class="pc bpc" id="L55" title="2 of 4 branches missed.">        if (o == null || getClass() != o.getClass()) return false;</span>
+<span class="fc" id="L56">        Card card = (Card) o;</span>
+<span class="pc bpc" id="L57" title="2 of 4 branches missed.">        return rank == card.rank &amp;&amp; suit == card.suit;</span>
+    }
+
+    /***
+     * To jest metoda zwracająca hashcode karty
+     * @return zwracana wartość hashcode karty
+     * */
+    @Override
+    public int hashCode() {
+<span class="fc" id="L66">        return Objects.hash(rank, suit);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
