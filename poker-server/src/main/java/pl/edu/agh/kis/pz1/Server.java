@@ -35,7 +35,6 @@ public class Server {
      * @param args argumenty wywołania - przyjmuje jedynie jedną liczbę całkowitą - liczbę graczy
      */
     public static void main(String[] args) {
-        BasicConfigurator.configure();
         logger.info("Starting server...");
         //obsługa argumentów wywołania
         handleArguments(args);
@@ -172,7 +171,6 @@ public class Server {
                         logger.info("key not readible");
                     }
                     keysIterator.remove();
-                    logger.info("cards sent to all players");
                 }
             }
         } catch (IOException e) {
@@ -217,7 +215,6 @@ public class Server {
         try{
             ByteBuffer buffer = ByteBuffer.allocate(1024);
             SocketChannel client = (SocketChannel) key.channel();
-            logger.info("Sending message to the client...");
             buffer.clear();
             buffer = ByteBuffer.wrap(message.getBytes());
             client.write(buffer);
@@ -288,7 +285,6 @@ public class Server {
             String message = readFromClient(key);
             if (!message.isEmpty()){
                 int playerID = (int) key.attachment();
-                logger.info("Player #" + playerID + " sent message: " + message);
                 SetParser sp = new SetParser(message);
                 // wiadomość pusta bez żadnych kart do wymiany
                 if(message.equals("-1")) {

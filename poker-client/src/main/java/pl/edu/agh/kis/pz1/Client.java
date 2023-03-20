@@ -4,8 +4,8 @@ import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
 import java.util.Scanner;
-import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.Logger;
+import org.apache.log4j.*;
+
 /**
  * Klasa klienta
  */
@@ -19,7 +19,7 @@ public class Client {
      * @param args - argumenty wywołania programu, nie są brane pod uwagę
      */
     public static void main(String[] args) throws IOException {
-        BasicConfigurator.configure();
+
         logger.info("Starting client...");
         logger.info("select server port, default is 8000");
         // dołączenie do serwera

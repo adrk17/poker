@@ -1,8 +1,0 @@
-GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-poker-common,pl.edu.agh.kis.pz1,Tuple,0,15,0,0,0,6,0,3,0,3
-poker-common,pl.edu.agh.kis.pz1,cardRank,0,124,0,0,0,20,0,4,0,4
-poker-common,pl.edu.agh.kis.pz1,Deck,35,137,2,6,8,27,4,12,3,9
-poker-common,pl.edu.agh.kis.pz1,pokerHand,0,100,0,0,0,17,0,4,0,4
-poker-common,pl.edu.agh.kis.pz1,CompareCards,0,29,0,4,0,4,0,4,0,2
-poker-common,pl.edu.agh.kis.pz1,cardSuit,0,52,0,0,0,11,0,4,0,4
-poker-common,pl.edu.agh.kis.pz1,Card,3,68,4,6,0,15,4,7,0,6

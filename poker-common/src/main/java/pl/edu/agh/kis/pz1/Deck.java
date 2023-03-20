@@ -15,7 +15,6 @@ public class Deck {
      */
     public Deck(){
         cardDeck = new ArrayList<>();
-        BasicConfigurator.configure();
     }
 
     /**

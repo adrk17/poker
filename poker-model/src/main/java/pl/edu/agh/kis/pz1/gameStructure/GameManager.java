@@ -3,7 +3,6 @@ import pl.edu.agh.kis.pz1.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 /**
  * Klasa zarządzanjąca grą
@@ -33,7 +32,6 @@ public class GameManager {
      */
     public GameManager(int _numPlayers){
         numPlayers = _numPlayers;
-        BasicConfigurator.configure();
     }
 
     /**
